@@ -1,0 +1,17 @@
+/*
+@startuml
+class Maze
+Maze : ArrayList<Position> positions;
+Maze "1" o-- "many" Position
+Position -- Arrow
+Position : int id;
+Position : ArrayList<Arrow> wayOut;
+Position "1" o-- "1" Color
+Arrow "1" o-- "1" Color
+Arrow : Position leadTo;
+Arrow : Color color;
+Position : Color color;
+Color : enum color;
+
+@enduml
+ */

@@ -1,0 +1,37 @@
+/*
+@startuml
+RecursiveAction<|-- Pathfinder
+Pathfinder <|-- PathfinderDFS
+Pathfinder <|-- PathfinderBFSConcurrent
+Pathfinder "1" o-- "many" State
+PathfinderDFS "1" o-- "many" State
+PathfinderBFSConcurrent "1" o-- "many" State
+Pathfinder : ArrayList<State> currentRoad;
+
+Pathfinder : static ArrayList<ArrayList<State>> wrongRoads;
+Pathfinder : static ArrayList<ArrayList<State>> correctRoads;
+
+
+Pathfinder : void prepareNextIteration(ArrayList<State> currentRoad, State state);
+Pathfinder : ArrayList<Arrow> getPossibleWays1();
+Pathfinder : ArrayList<Arrow> getPossibleWays2();
+Pathfinder : boolean causeNoLoop();
+Pathfinder : String wrongRoadsToString();
+Pathfinder : String correctRoadsToString();
+Pathfinder : void Clear();
+
+PathfinderDFS : void compute();
+PathfinderDFS : String wrongRoadsToString();
+PathfinderDFS : String correctRoadsToString();
+
+PathfinderBFSConcurrent : void compute();
+PathfinderBFSConcurrent : String wrongRoadsToString();
+PathfinderBFSConcurrent : String correctRoadsToString();
+
+State : Position pos1
+State : Position pos2
+State : boolean compare(State anotherState)
+State : boolean isOnFinish()
+
+@enduml
+ */

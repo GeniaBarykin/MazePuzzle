@@ -1,0 +1,42 @@
+@startuml
+actor Main #red
+
+participant Maze
+participant State
+
+Main -> Maze : build();
+activate Maze
+Main <- Maze : Positions
+deactivate Maze
+Main -> State : Position pos1,pos2;
+State --> Main : State initialState;
+Main -> PathfinderBFSConcurrent: State initialState;
+activate PathfinderBFSConcurrent
+participant Pathfinder
+alt isOnFinish()==true
+    PathfinderBFSConcurrent -> PathfinderBFSConcurrent  : ArrayList<State> correctRoad
+    PathfinderBFSConcurrent -> PathfinderBFSConcurrent : ArrayList<State> completeRoad
+    else
+   PathfinderBFSConcurrent -> Pathfinder : State currentState
+   activate Pathfinder
+   Pathfinder --> PathfinderBFSConcurrent : ArrayList<Arrow> possibleWays1
+   deactivate Pathfinder
+    PathfinderBFSConcurrent -> Pathfinder : State currentState
+        activate Pathfinder
+        Pathfinder --> PathfinderBFSConcurrent : ArrayList<Arrow> possibleWays2
+        deactivate Pathfinder
+        alt possibleWays>0
+            loop foreach posibleWay
+                PathfinderBFSConcurrent -> PathfinderBFSConcurrent : recursive&concurrent(State nextState)
+                activate PathfinderBFSConcurrent
+            end
+        else
+            PathfinderBFSConcurrent -> PathfinderBFSConcurrent : ArrayList<State> completeRoad
+        end
+        deactivate PathfinderBFSConcurrent
+        deactivate PathfinderBFSConcurrent
+    end
+
+    PathfinderBFSConcurrent -> Main : ArrayList<ArrayList<State>> correctRoads
+    PathfinderBFSConcurrent -> Main : ArrayList<ArrayList<State>> wrongRoads
+@enduml

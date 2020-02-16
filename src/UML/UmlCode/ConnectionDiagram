@@ -1,0 +1,14 @@
+/*
+@startuml
+Position : int id;
+Position : ArrayList<Arrow> wayOut;
+Position : Color color;
+State "1" o-- "2" Position
+
+
+State : Position pos1
+State : Position pos2
+State : boolean compare(State anotherState)
+State : boolean isOnFinish()
+@enduml
+ */
